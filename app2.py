@@ -1,23 +1,16 @@
-
-
 import os
 import streamlit as st
 from dotenv import load_dotenv
-import tempfile
-import docx
 import io
 
-from PyPDF2 import PdfReader
 from langchain_groq import ChatGroq
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import ChatPromptTemplate
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.documents import Document
-import chromadb
 
 load_dotenv()
 
@@ -25,8 +18,6 @@ load_dotenv()
 llm = ChatGroq(model="llama3-70b-8192")
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
-
-PERSIST_DIRECTORY = "./chroma_langchain_db"
 
 def init_session_state():
     if 'retriever' not in st.session_state:
